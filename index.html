@@ -2,66 +2,119 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Complaint Form</title>
+  <title>Submit a Complaint</title>
   <meta http-equiv="Content-type" content="text/html; charset=UTF-8">
+
   <style>
-    /* Basic styling for form */
+    /* Global styles */
     body {
       font-family: Arial, sans-serif;
-      margin: 20px;
+      background: #f9f9f9;
+      margin: 0;
+      padding: 0;
     }
+
+    .container {
+      max-width: 500px;
+      margin: 50px auto;
+      background: #ffffff;
+      padding: 30px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      border-radius: 8px;
+    }
+
+    h2 {
+      text-align: center;
+      color: #333;
+      margin-bottom: 20px;
+    }
+
     label {
       display: block;
-      margin: 10px 0 5px;
+      margin-top: 15px;
+      color: #555;
+      font-weight: bold;
     }
-    input[type="text"], textarea {
-      width: 300px;
-      padding: 5px;
+
+    input[type="text"],
+    textarea {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      box-sizing: border-box;
+      font-size: 14px;
+      margin-top: 5px;
+      transition: border-color 0.3s ease;
     }
+
+    input[type="text"]:focus,
+    textarea:focus {
+      border-color: #0070d2;
+      outline: none;
+    }
+
     input[readonly] {
       background-color: #f0f0f0;
+      cursor: not-allowed;
     }
+
     input[type="submit"] {
-      margin-top: 15px;
-      padding: 10px 20px;
+      display: block;
+      width: 100%;
+      padding: 10px;
+      background: #0070d2;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      margin-top: 20px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    input[type="submit"]:hover {
+      background: #005bb5;
     }
   </style>
 </head>
+
 <body>
 
-  <h2>Submit a Complaint</h2>
+  <div class="container">
+    <h2>Submit a Complaint</h2>
 
-  <form action="https://webto.salesforce.com/servlet/servlet.WebToCase?encoding=UTF-8&orgId=00DgK000004BxNR" method="POST">
+    <form action="https://webto.salesforce.com/servlet/servlet.WebToCase?encoding=UTF-8&orgId=00DgK000004BxNR" method="POST">
 
-    <!-- Salesforce Org ID -->
-    <input type="hidden" name="orgid" value="00DgK000004BxNR">
+      <!-- Salesforce Org ID -->
+      <input type="hidden" name="orgid" value="00DgK000004BxNR">
 
-    <!-- Return URL after submission -->
-    <input type="hidden" name="retURL" value="http://">
+      <!-- Return URL after submission -->
+      <input type="hidden" name="retURL" value="http://">
 
-    <!-- Booking Number (read-only) -->
-    <label for="00NgK000012ZY5B">Booking Number</label>
-    <input id="00NgK000012ZY5B" maxlength="200" name="00NgK000012ZY5B" size="20" type="text" readonly><br>
+      <!-- Booking Number (read-only) -->
+      <label for="00NgK000012ZY5B">Booking Number</label>
+      <input id="00NgK000012ZY5B" maxlength="200" name="00NgK000012ZY5B" type="text" readonly>
 
-    <!-- Subject -->
-    <label for="subject">Subject</label>
-    <input id="subject" maxlength="80" name="subject" size="20" type="text" required><br>
+      <!-- Subject -->
+      <label for="subject">Subject</label>
+      <input id="subject" maxlength="80" name="subject" type="text" required>
 
-    <!-- Description -->
-    <label for="description">Description</label>
-    <textarea name="description" rows="4" required></textarea><br>
+      <!-- Description -->
+      <label for="description">Description</label>
+      <textarea name="description" rows="4" required></textarea>
 
-    <!-- Submit Button -->
-    <input type="submit" name="submit" value="Submit Complaint">
+      <!-- Submit Button -->
+      <input type="submit" name="submit" value="Submit Complaint">
 
-  </form>
+    </form>
+  </div>
 
   <!-- Script to fill Booking Number dynamically from URL -->
   <script>
     window.onload = function() {
       const urlParams = new URLSearchParams(window.location.search);
-      const bookingNumber = urlParams.get('booking_number'); // ?booking_number=BN-00123
-
+      const bookingNumber = urlParams.get('booking_number'); // e.g., ?booking_number=BN-00123
       if (bookingNumber) {
         document.getElementById('00NgK000012ZY5B').value = bookingNumber;
       }
